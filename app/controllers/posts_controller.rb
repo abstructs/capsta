@@ -13,6 +13,18 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def show
+    @post = Post.find_by(params[:id])
+  end
+
+  def edit
+    @post = Post.find_by(params[:id])
+  end
+
+  def update
+
+  end
+
   private
 
   def post_params

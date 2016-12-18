@@ -1,5 +1,10 @@
-%h1 Capsta
-- @posts.each do |post|
-  = image_tag post.image.url(:medium)
-  = post.caption
-%p= link_to raw("<strong>Create a New Post</strong>"), new_post_path
+.posts-wrapper.row
+  -@posts.each do |post|
+    .post
+      .post-head
+        .name
+          Ben Walker
+      .image.center-block
+        =link_to (image_tag post.image.url(:medium), class:'img-responsive'), post_path(post)
+      %p.caption
+        =post.caption
