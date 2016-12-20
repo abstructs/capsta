@@ -1,24 +1,7 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# READ ME
+# I created this application to learn a bunch of stuff about rails
+# I'll be using popular gems such as devise for users auth
+# Relational databases ftw
+# Haml for html generation
+# Sass for styless
+# Will have running version up on heroku at some point in the future
