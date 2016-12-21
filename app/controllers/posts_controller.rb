@@ -1,17 +1,18 @@
 class PostsController < ApplicationController
   before_action :set_post, :authenticate_user!, only: [:show, :edit, :update, :destroy]
-
+  before_action :owned_post, only: [:edit, :update, :destroy]
   def index
     @posts = Post.all
   end
 
   def new
-    @post = Post.new
+    @post = current_user.posts.build
   end
 
   def create
-    @post = Post.create(post_params)
-    if !@post.id.nil?
+    @post = current_user.posts.build(post_params)
+
+    if @post.save
       flash[:success] = "Your post has been created!"
       redirect_to posts_path @post
     else
@@ -27,14 +28,16 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.assign_attributes(post_params)
-    if @post.changed?
-      @post.save
-      flash[:success] = "Post successfully updated!"
-      redirect_to post_path(@post)
-    else
-      flash.now[:alert] = "Update failed. Please make a change."
-      render :edit
+    if @post.user_id == current_user.id
+      @post.assign_attributes(post_params)
+      if @post.changed?
+        @post.save
+        flash[:success] = "Post successfully updated!"
+        redirect_to post_path(@post)
+      else
+        flash.now[:alert] = "Update failed. Please make a change."
+        render :edit
+      end
     end
   end
 
@@ -50,8 +53,15 @@ class PostsController < ApplicationController
 
   private
 
+  def owned_post
+    unless current_user == @post.user
+      flash[:alert] = "That post does not belong to you!"
+      redirect_to root_path
+    end
+  end
+
   def post_params
-    params.require(:post).permit(:image, :caption)
+    params.require(:post).permit(:image, :caption, :user_id)
   end
 
   def set_post
