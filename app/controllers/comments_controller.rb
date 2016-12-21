@@ -15,20 +15,30 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
+
     if @comment.save
-      redirect_to :back
-      flash[:success] = "Comment has been successfully posted"
+      respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
+    end
     else
-      flash.now[:alert] = "Comment could not be posted"
-      redirect_to root_path
+      flash[:alert] = "Check the comment form, something went
+      wrong."
+      render root_path
     end
   end
 
-  def destroy
-    @post.comments.find_by(id: params[:id]).destroy
-    flash[:success] =  "Comment has been successfully deleted"
-    redirect_to root_path
+def destroy
+  @comment = @post.comments.find(params[:id])
+
+  if @comment.user_id == current_user.id
+    @comment.delete
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
+    end
   end
+end
 
   private
 
