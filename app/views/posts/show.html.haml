@@ -1,5 +1,5 @@
 = render 'post', post: @post
-.text-center
+.text-center#post-actions
   =link_to "Cancel", posts_path
   -if current_user.id == @post.user.id
     |
