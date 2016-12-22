@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'haml', '~> 4.0.5'
 # Use paperclip to manage image uploading
 gem "paperclip", "~> 5.0.0"
+# Use kaminari for paginating pages
+gem 'kaminari'
 # Use simpleform for creating forms
 gem 'simple_form'
 # Use devise for authenticating users
@@ -52,6 +54,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

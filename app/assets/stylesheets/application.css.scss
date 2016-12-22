@@ -157,7 +157,11 @@ body {
 .registration-bg {
   padding-top: 4em;
   height: 100%;
-  background-image: image-url('regbackg.jpg');
+  width: 100%;
+  position: absolute;
+  top: 50;
+  left: 0;
+  background-image: image-url('shore.jpg');
   -moz-background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
@@ -192,9 +196,14 @@ body {
   margin-bottom: 5px;
 }
 .login-bg {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 50;
+  left: 0;
   padding-top: 4em;
   height: 100%;
-  background-image: image-url('loginbg.jpg');
+  background-image: image-url('street.jpg');
   -moz-background-size: cover;
   -webkit-background-size: cover;
   -o-background-size: cover;
