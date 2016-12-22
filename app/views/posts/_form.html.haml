@@ -2,7 +2,8 @@
   .post
     .post-body
       .image-wrap
-        = image_tag 'sunset.jpg', id: 'image-preview', class: 'img-responsive'
+        - if image_exists?
+          = image_tag 'sunset.jpg', id: 'image-preview', class: 'img-responsive'
       = simple_form_for @post, html: { multipart: true } do |f|
         .row
           .col-md-12.text-center
