@@ -1,0 +1,7 @@
+%h1.text-center
+  = @user.user_name
+%div.profile
+  -if current_user.user_name == @user.user_name
+    = link_to "Edit Profile", edit_profile_path
+
+= render @posts
