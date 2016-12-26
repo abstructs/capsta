@@ -5,6 +5,10 @@ class PostsController < ApplicationController
     @posts = Post.all.order('created_at DESC').page params[:page]
   end
 
+  def like
+    @post.liked_by current_user
+  end
+
   def new
     @post = current_user.posts.build
   end

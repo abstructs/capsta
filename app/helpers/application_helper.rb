@@ -8,10 +8,6 @@ module ApplicationHelper
   end
 
   def profile_avatar_select user
-    if user.profile_avatar_file_name.nil?
-      image_tag 'default-avatar.png', id: 'image-preview', class: 'img-responsive img-circle profile-image'
-    else
-      return image_tag user.profile_avatar.url(:medium), id: 'image-preview', class: 'img-responsive img-circle profile-image'
-    end
+    image_tag user.avatar.url(:medium), id: 'image-preview', class: 'img-responsive img-circle profile-image'
   end
 end
