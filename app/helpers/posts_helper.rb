@@ -4,7 +4,7 @@ module PostsHelper
     @post.image_file_name.nil?
   end
 
-  def likers_of(post)
+  def display_likers_of(post)
     votes = post.votes_for.up.by_type(User)
 
     user_names = []
@@ -25,6 +25,12 @@ module PostsHelper
     if current_user
       return 'glyphicon-heart' if current_user.voted_for? post
       'glyphicon-heart-empty'
+    end
+  end
+
+  def user_liked_post? (post)
+    if current_user
+      return true if current_user.voted_for? post
     end
   end
 

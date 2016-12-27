@@ -1,14 +1,23 @@
 class PostsController < ApplicationController
-  before_action :set_post, :authenticate_user!, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, :authenticate_user!, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :owned_post, only: [:edit, :update, :destroy]
   def index
     @posts = Post.all.order('created_at DESC').page params[:page]
   end
 
   def like
-    @post = Post.find_by(id: params[:id])
-    
     if @post.liked_by current_user
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    end
+  end
+
+  def unlike
+    if current_user.voted_up_on? @post
+      @post.unliked_by current_user
+
       respond_to do |format|
         format.html { redirect_to :back }
         format.js
@@ -25,7 +34,7 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:success] = "Your post has been created!"
-      redirect_to posts_path @post
+      redirect_to post_path @post
     else
       flash.now[:alert] = "Your new post couldn't be created!"
       render :new
@@ -55,7 +64,7 @@ class PostsController < ApplicationController
   def destroy
     if @post.destroy
       flash[:success] = "Post successfully deleted!"
-      redirect_to posts_path
+      redirect_to root_path
     else
       flash.now[:danger] = "Oh no! Something went wrong."
       redirect_to :edit

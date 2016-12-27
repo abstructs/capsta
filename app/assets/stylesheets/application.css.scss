@@ -288,6 +288,15 @@ body {
   margin-bottom: 7px;
 }
 .like-heart, .like-heart:hover, .like-heart:visited, .like-heart:active, .like-heart:link {
-  // smh 
+  // smh
   text-decoration: none;
+  color: red;
+}
+.like {
+  text-decoration: none;
+  color: red;
+}
+.like-button a:hover, .like-button a:focus {
+  text-decoration: none;
+  color: red;
 }
