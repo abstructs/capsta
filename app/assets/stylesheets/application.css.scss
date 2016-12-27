@@ -283,3 +283,11 @@ body {
 #user_avatar {
   margin: 20px auto;
 }
+.likes {
+  margin-top: 20px;
+  margin-bottom: 7px;
+}
+.like-heart, .like-heart:hover, .like-heart:visited, .like-heart:active, .like-heart:link {
+  // smh 
+  text-decoration: none;
+}

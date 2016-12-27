@@ -6,7 +6,14 @@ class PostsController < ApplicationController
   end
 
   def like
-    @post.liked_by current_user
+    @post = Post.find_by(id: params[:id])
+    
+    if @post.liked_by current_user
+      respond_to do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
+    end
   end
 
   def new
