@@ -1,4 +1,7 @@
-$(document).ready(function(){
+<% if @comment.save %>
   $('#comments_<%= @post.id %>').append("<%=j render 'comments/comment', post: @post, comment: @comment %>");
   $('#comment_content_<%= @post.id %>').val('');
-})
+<% else %>
+  var message = 'Comment <%= raw @comment.errors.messages[:content][0] %>'
+  alert(message);
+<% end %>
