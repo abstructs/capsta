@@ -1,5 +1,5 @@
-.container
-  .row
-    .col-md-6.col-md-offset-3
-      %ul.notification-index-list
-        = render @notifications
+.container  .row    .col-md-6.col-md-offset-3      %ul.notification-index-list
+        #notifications
+          = render 'notifications'
+        #notification-paginator.text-center
+          = link_to_next_page @notifications, 'load more', remote: true, id: 'notifications_paginator'

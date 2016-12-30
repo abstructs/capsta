@@ -44,13 +44,13 @@ end
   private
 
   def create_notification post, comment
-    return if post.id == current_user.id
+    return if post.user_id == current_user.id
     @notification = Notification.create(user_id: post.user_id,
                                        notified_by_id: comment.user_id,
                                        post_id: post.id,
+                                       read: false,
                                        identifier: comment.id,
                                        notice_type: 'comment')
-
   end
 
   def set_post

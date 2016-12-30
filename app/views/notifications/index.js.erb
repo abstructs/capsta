@@ -1,0 +1,4 @@
+$(document).ajaxSuccess(function(){
+  $('#notifications').append("<%= escape_javascript(render 'notifications')%>");
+  $('#notification-paginator').html("<%= escape_javascript(link_to_next_page(@notifications, 'load more', remote: true))%>");
+});

@@ -7,6 +7,7 @@ class PostsController < ApplicationController
 
   def like
     if @post.liked_by current_user
+      create_notification(@post, current_user)
       respond_to do |format|
         format.html { redirect_to :back }
         format.js
@@ -72,6 +73,16 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def create_notification post, user
+    return if post.user_id == current_user.id
+    @notification = Notification.create(user_id: post.user_id,
+                                       notified_by_id: user.id,
+                                       post_id: post.id,
+                                       read: false,
+                                       identifier: post.id,
+                                       notice_type: 'like')
+  end
 
   def owned_post
     unless current_user == @post.user
