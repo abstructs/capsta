@@ -19,6 +19,11 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
 
+    if @comment.save
+      create_notification(@post, @comment)
+    end
+
+
     respond_to do |format|
       format.js
     end
@@ -38,14 +43,15 @@ end
 
   private
 
-  # def create_notification post, comment
-  #   return if post_id == current_user.id
-  #   @notification = Notification.build(user_id: post.user_id,
-  #                                      notified_by_id: comment.user_id,
-  #                                      post_id: post.id,
-  #                                      comment_id: comment.id,
-  #                                      notice_type: 'comment')
-  # end
+  def create_notification post, comment
+    return if post.id == current_user.id
+    @notification = Notification.create(user_id: post.user_id,
+                                       notified_by_id: comment.user_id,
+                                       post_id: post.id,
+                                       identifier: comment.id,
+                                       notice_type: 'comment')
+
+  end
 
   def set_post
     @post = Post.find(params[:post_id])
