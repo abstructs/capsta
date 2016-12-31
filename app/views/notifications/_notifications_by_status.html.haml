@@ -1,0 +1,12 @@
+unread
+#unread-section
+  #unread-notifications
+    = render 'notifications', read: false
+  #unread-notification-paginator.text-center
+    = link_to_next_page @notifications.where(read: false), 'load more', remote: true, id: 'unread_paginator', class: 'notifications_paginator'
+read
+#read-section
+  #read-notifications
+    = render 'notifications', read: true
+  #read-notification-paginator.text-center
+    = link_to_next_page @notifications.where(read: true), 'load more', remote: true, id: 'read_paginator', class: 'notifications_paginator'

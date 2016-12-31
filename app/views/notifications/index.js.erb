@@ -1,4 +1,19 @@
-$(document).ajaxSuccess(function(){
-  $('#notifications').append("<%= escape_javascript(render 'notifications')%>");
-  $('#notification-paginator').html("<%= escape_javascript(link_to_next_page(@notifications, 'load more', remote: true))%>");
+$('.notifications_paginator').bind('ajax:success',function(e, data, status, xhr){
+  if (e.target.id == "unread_paginator") {
+    $('#unread-notifications').append("<%= escape_javascript(render 'notifications', read: false)%>");
+
+    $('#unread_paginator').html("<%= escape_javascript(link_to_next_page(@notifications.where(read: false), 'load more', remote: true, class: 'notifications_paginator', id: 'unread_paginator'))%>");
+  }
+  else if (e.target.id == "read_paginator") {
+    $('#read-notifications').append("<%= escape_javascript(render 'notifications', read: true)%>");
+    $('#read_paginator').html("<%= escape_javascript(link_to_next_page(@notifications.where(read: true), 'load more', remote: true, class: 'notifications_paginator', id: 'read_paginator'))%>");
+  }
+  else {
+    $('#notifications').append("<%= escape_javascript(render 'notifications')%>");
+    $('#notification-paginator').html("<%= escape_javascript(link_to_next_page(@notifications, 'load more', remote: true, class: 'notifications_paginator'))%>");
+  }
 });
+// $(document).ajaxSuccess(function(){
+//   $('#notifications').append("<%= escape_javascript(render 'notifications')%>");
+//   $('#notification-paginator').html("<%= escape_javascript(link_to_next_page(@notifications, 'load more', remote: true))%>");
+// })

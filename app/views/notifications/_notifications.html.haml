@@ -1,2 +1,8 @@
-- @notifications.each do |notif|
-  = render 'notification', notification: notif
+- read = 'all' if local_assigns[:read].nil?
+- if read == 'all'
+  - @notifications.each do |notif|
+    = render 'notification', notification: notif
+- else
+  -# I used local_assigns here for clarity
+  - @notifications.where(read: local_assigns[:read]).each do |notif|
+    = render 'notification', notification: notif
