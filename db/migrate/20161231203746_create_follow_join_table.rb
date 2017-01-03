@@ -4,7 +4,7 @@ class CreateFollowJoinTable < ActiveRecord::Migration[5.0]
        t.integer 'following_id', null: false
        t.integer 'follower_id', null: false
 
-       t.timestamps, null: false
+       t.timestamps null: false
      end
 
      add_index :follows, :following_id

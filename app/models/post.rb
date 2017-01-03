@@ -7,4 +7,5 @@ class Post < ApplicationRecord
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   acts_as_votable
   has_many :notifications, dependent: :destroy
+  scope :of_followed_users, -> (following_users) { where user_id: following_users }
 end
